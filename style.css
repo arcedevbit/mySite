@@ -1,0 +1,441 @@
+@font-face {
+  font-family: 'stratum2';
+  src: url('fonts/stratum2-bold-webfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Variáveis de cores */
+:root {
+  --color-dark: #000;
+  --color-light: #ededed;
+  --color-background-dark: #232322;
+  --color-background-light: #343434;
+  --color-button-primary: #5656ff;
+  --color-button-hover: #4444d9;
+  --color-feed-item: #3e3e3e;
+  --color-footer: #232322;
+  --color-text: #fff;
+  --color-link: rgb(103, 103, 255);
+  --color-link-hover: rgb(103, 103, 255);
+  --color-dark-theme: #121212;
+  --color-dark-background: #181818;
+  --color-error: red;
+  --color-success: #45a049;
+  --color-button-hover-dark: #4444d9; /* Nova variável para o hover dos botões */
+}
+
+/* General Styles */
+body {
+  font-family: 'stratum2';
+  background: var(--color-dark);
+  color: var(--color-light);
+  margin: 0;
+  padding-top: 60px;
+}
+
+.container {
+  background-color: var(--color-background-dark);
+  height: 50px;
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--color-light);
+}
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.search-bar input {
+  background: var(--color-background-light);
+  border: 1px solid #555;
+  padding: 5px 10px;
+  color: var(--color-light);
+  border-radius: 4px;
+  flex: 1;
+}
+
+.create .btn {
+  background: var(--color-button-primary);
+  color: var(--color-text);
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Layout - Mantendo o layout original */
+.content {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 20px; /* Garantir que o conteúdo não fique embaixo do menu fixo */
+  background-color: var(--color-background-light);
+}
+
+.left {
+  background-color: var(--color-background-dark);
+  width: 700px;
+  display: none;
+  display: block;
+}
+
+.right {
+  background-color: var(--color-background-dark);
+  width: 700px;
+  display: none;
+}
+
+textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #555;
+  color: var(--color-text);
+  border: none;
+  border-radius: 4px;
+}
+
+/* Botões */
+button:hover {
+  background-color: var(--color-success);
+}
+
+#msg {
+  color: var(--color-error);
+}
+
+
+/* Footer */
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: var(--color-footer);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-text);
+}
+
+footer .footer-content p {
+  margin: 0;
+}
+
+/* Dark Theme */
+body.dark-theme {
+  background-color: var(--color-dark-theme);
+  color: var(--color-text);
+}
+
+body.dark-theme .container {
+  background-color: var(--color-dark-background);
+}
+
+body.dark-theme .background {
+  background-color: #222222;
+}
+
+body.dark-theme button {
+  background-color: #4CAF50;
+}
+
+.form-container {
+  margin: auto;
+  padding: 20px;
+  background: var(--color-background-dark); /* Alterado para cor escura */
+  max-width: 400px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  color: var(--color-light);
+  text-align: left;
+}
+
+.form-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #555;
+  border-radius: 4px;
+  background: var(--color-background-dark);
+  color: var(--color-light);
+}
+
+.form-container .btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background: var(--color-button-primary);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.form-container a {
+  color: var(--color-link);
+  text-decoration: none;
+}
+
+.form-container a:hover {
+  text-decoration: underline;
+}
+
+/* Estilo para o ícone de editar */
+.edit-icon {
+  width: 16px; /* Ajustei para ser menor */
+  height: 16px;
+  object-fit: contain;
+  cursor: pointer;
+  margin-left: 10px; /* Para que o ícone fique do lado direito do nome */
+}
+
+/* Menu de navegação fixo */
+.profile-nav {
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--color-background-light);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+  font-family: 'stratum2';
+}
+
+.nav-btn {
+  background-color: var(--color-background-light);
+  border: none;
+  color: var(--color-text);
+  padding: 10px 10px;
+  cursor: pointer;
+  margin: 0 10px;
+  font-size: 20px;
+  border-radius: 0px;
+  font-family: 'stratum2';
+}
+
+/* Perfil */
+.profile-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.profile-photo {
+  position: relative;
+  text-align: center; /* Para centralizar a imagem */
+  margin-bottom: 20px; /* Para deixar um espaço entre a imagem e o nome */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.profile-photo img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  
+}
+
+.profile-details{
+  position: relative;
+  text-align: center; /* Para centralizar a imagem */
+  margin-bottom: 20px; /* Para deixar um espaço entre a imagem e o nome */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.profile-photo .edit-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text); /* Cor do ícone de editar */
+}
+
+/* Mensagem de erro para o upload da foto */
+.error-message {
+  color: var(--color-error);
+  font-size: 14px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Ajustes no Input de Foto */
+input[type="file"] {
+  display: none;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .feed-post {
+    width: 100%;
+    padding: 10px;
+  }
+  .profile-info {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+  }
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Post Feed */
+.feed-post {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  background-color: var(--color-background-light);
+}
+
+.posts-list{
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 20px; /* Garantir que o conteúdo não fique embaixo do menu fixo */
+  background-color: var(--color-background-light);
+}
+
+#posts {
+  background-color: var(--color-background-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.feed-item {
+  background: var(--color-feed-item);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.feed-item p {
+  margin: 0;
+  color: var(--color-text);
+}
+
+.post-info {
+  max-width: 600px;
+  margin: auto;
+  background-color: var(--color-background-light);
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para o container do cabeçalho da postagem */
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Espaço entre a imagem e o texto */
+  margin-bottom: 10px;
+  
+}
+
+/* Estilo para a imagem de perfil */
+.post-profile-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Estilo para o título da postagem */
+.post-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.post-user {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  font-size: 14px;
+}
+
+.toast.success {
+  background-color: #28a745;
+}
+
+/* Transições e animações */
+.section {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.section.visible {
+  opacity: 1;
+}
+
+/* Indicação de Seção Ativa */
+.nav-btn.active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Carregamento de Dados */
+.loading {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+  color: #007bff;
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil do Usuário - MySensify</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+<body>
+  <header class="container">
+    <div class="logo">MySensify</div>
+    <div class="search-bar"></div>
+    <div class="create">
+      <a href="index.html" class="btn">Ver Feed</a>
+    </div>
+  </header>
+
+  <!-- Menu de Navegação -->
+  <nav class="profile-nav">
+    <button id="btnPerfil" class="nav-btn" aria-label="Ir para o perfil">Perfil</button>
+    <button id="btnPosts" class="nav-btn" aria-label="Ver seus posts">Posts</button>
+  </nav>
+
+  <section class="content">
+    <div class="left">
+      <h3>Perfil</h3>
+      <div class="profile-info">
+        <div class="profile-photo">
+          <img id="profile-photo" src="img/default-profile.png" alt="Foto de perfil do usuário">
+          <button class="nav-btn" onclick="document.getElementById('photo-upload').click();" aria-label="Editar Foto de Perfil">
+            <i class="fa fa-edit"></i>
+          </button>
+          <input type="file" id="photo-upload" style="display:none" accept="image/*" onchange="updateProfilePhoto(event)">
+        </div>
+        <div class="profile-details">
+          <p id="user-name">Nome do Usuário</p>
+          <button class="nav-btn" onclick="editUserName()" aria-label="Editar Nome de Usuário">
+            <i class="fa fa-edit"></i>
+          </button>
+        </div>
+        <div id="message" class="error-message"></div>
+      </div>
+    </div>
+
+    <div class="right">
+      <h3>Criar Post</h3>
+      <form id="postForm" onsubmit="submitPost(event)">
+        <div class="form-group">
+          <label for="title">Título:</label>
+          <input type="text" id="title" name="title" required>
+        </div>
+        <div class="form-group">
+          <label for="content">Conteúdo:</label>
+          <textarea id="content" name="content" rows="10" required></textarea>
+        </div>
+        <button type="submit">Enviar Postagem
+          <i class="fa fa-paper-plane"></i>
+        </button>
+      </form>
+      
+      <h2>Postagens Existentes</h2>
+      <div id="existingPosts"></div>
+      
+      <script>
+        // Função para capturar e salvar os dados da postagem no localStorage
+        function submitPost(event) {
+          event.preventDefault(); // Evita o comportamento padrão do formulário (recarregar página)
+      
+          // Captura os dados do formulário
+          const user = localStorage.getItem('userName') || 'Nome do Usuário';
+          const title = document.getElementById('title').value;
+          const content = document.getElementById('content').value;
+      
+          // Verifica se ambos os campos têm valores
+          if (!title || !content) {
+            alert('Por favor, preencha o título e o conteúdo!');
+            return;
+          }
+      
+          // Cria um objeto para a postagem
+          const post = {
+            user: user,
+            title: title,
+            content: content,
+            date: new Date().toLocaleString(), // Adiciona a data de criação
+            profilePhoto: localStorage.getItem('profilePhoto') || 'default-profile.png' // Imagem de perfil do usuário
+          };
+      
+          // Recupera as postagens existentes no localStorage (se houver)
+          const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      
+          // Adiciona a nova postagem ao array
+          posts.push(post);
+      
+          // Salva as postagens no localStorage
+          localStorage.setItem('posts', JSON.stringify(posts));
+      
+          // Redireciona para a página de feed
+          window.location.href = 'index.html';
+        }
+      
+        // Função para carregar as postagens e adicionar opção de excluir
+        function loadExistingPosts() {
+          const posts = JSON.parse(localStorage.getItem('posts')) || [];
+          const postsContainer = document.getElementById('existingPosts');
+          postsContainer.innerHTML = ''; // Limpa o container
+      
+          posts.forEach((post, index) => {
+            const postElement = document.createElement('div');
+            postElement.classList.add('post');
+            postElement.innerHTML = `
+              <h3>${post.title}</h3>
+              <p>${post.content}</p>
+              <small>Postado em: ${post.date}</small>
+              <button onclick="deletePost(${index})"><i class="fas fa-trash-alt"></i></button>
+              `
+            ;
+            postsContainer.appendChild(postElement);
+          });
+        }
+      
+        // Função para excluir um post
+        function deletePost(index) {
+          // Recupera as postagens existentes no localStorage
+          const posts = JSON.parse(localStorage.getItem('posts')) || [];
+      
+          // Remove o post com o índice dado
+          posts.splice(index, 1);
+      
+          // Atualiza o localStorage
+          localStorage.setItem('posts', JSON.stringify(posts));
+      
+          // Recarrega as postagens na página
+          loadExistingPosts();
+        }
+      
+        // Carrega as postagens existentes quando a página for carregada
+        window.onload = loadExistingPosts;
+      </script>
+      
+    </div>      
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2024 MySensify. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

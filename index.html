@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feed - Social Media App</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+
+<body>
+  <nav class="container">
+    <div class="logo">
+      MySensify
+    </div>
+    <div class="search-bar">
+      <input type="text" placeholder="Pesquisar...">
+    </div>
+    <div class="create">
+      <a href="user-page.html" class="btn">Criar Post</a>
+    </div>
+  </nav>
+
+  <section class="feed-post">
+    <h2>Feed de Postagens</h2>
+    <div id="posts" class="posts-list">
+      <!-- Postagens serão carregadas aqui -->
+    </div>
+  </section>
+  
+  <script>
+    // Função para recuperar as postagens do localStorage
+    function getPosts() {
+      return JSON.parse(localStorage.getItem('posts')) || [];
+    }
+
+    // Função para atualizar a exibição das postagens
+    function renderPosts(posts) {
+      const postsContainer = document.getElementById('posts');
+      postsContainer.innerHTML = posts.length > 0
+        ? posts.map((post, index) => `
+            <div class="post">
+              <div class="post-header">
+                <img src="${post.profilePhoto || 'default-profile.png'}" alt="Foto de Perfil" class="post-profile-photo">
+                <div>
+                  <h3 class="post-user">${post.user}</h3>
+                  <h4 class="post-title">${post.title}</h4>
+                </div>
+              </div>
+              <div>
+                <p>${post.content}</p>
+              </div>
+              <small>Postado em: ${post.date}</small>
+              <button onclick="deletePost(${index})">Excluir</button>
+            </div>
+          `).join('')
+        : '<p>Ainda não há postagens.</p>';
+    }
+
+    // Função para carregar as postagens
+    function loadPosts() {
+      const posts = getPosts();
+      renderPosts(posts);
+    }
+
+    // Função para excluir uma postagem
+    function deletePost(index) {
+      const posts = getPosts();
+      posts.splice(index, 1);
+      localStorage.setItem('posts', JSON.stringify(posts));
+      renderPosts(posts);
+    }
+
+    // Carregar as postagens quando a página for carregada
+    window.onload = loadPosts;
+  </script>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2024 MySensify. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
+
+
